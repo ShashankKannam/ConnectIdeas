@@ -8,7 +8,17 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class SignInVC: UIViewController {
+    
+    @IBOutlet weak var emailIDTF:UITextField!
+    
+    @IBOutlet weak var passwordTF:UITextField!
+    
+    
+    @IBAction func login(sender: UIButton){
+        
+    }
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
