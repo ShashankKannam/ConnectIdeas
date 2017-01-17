@@ -18,8 +18,9 @@ class SignInVC: UIViewController {
     @IBOutlet weak var passwordTF:UITextField!
     
     
-    @IBAction func login(sender: UIButton){
+    @IBAction func login(_ sender: Any){
       
+        print("Got here first...")
         let fbloginManager = FBSDKLoginManager()
       fbloginManager.logIn(withReadPermissions: ["email"], from: self) { (result, error) in
         if error != nil{
@@ -29,12 +30,44 @@ class SignInVC: UIViewController {
             print("Not giving Permissions")
         }
         else {
-            //let credential
+            let credential = FIRFacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
+            
+            FIRAuth.auth()?.signIn(with: credential) { (user, error) in
+                // ...
+                if let error = error {
+                    print(error.localizedDescription)
+                    return
+                }
+                print("The on who logged in ............")
+                print((user?.displayName)! as String)
         }
         }
     }
-    
+    }
 
+    
+    @IBAction func emailLogin(_ sender: Any){
+       
+        if let email = emailIDTF.text, let password = passwordTF.text{
+            FIRAuth.auth()?.signIn(withEmail: email, password: password) { (user, error) in
+                // ...
+                if error == nil{
+                   print("successfully logged in")
+                }
+                else{
+                    FIRAuth.auth()?.createUser(withEmail: email, password: password) { (user, error) in
+                        // ...
+                        if error == nil{
+                             print("account created")
+                        }else{
+                            print("error in account creation")
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
