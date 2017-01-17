@@ -10,6 +10,7 @@ import UIKit
 import Firebase
 import FBSDKCoreKit
 import FBSDKLoginKit
+import SwiftKeychainWrapper
 
 class SignInVC: UIViewController {
     
@@ -40,6 +41,9 @@ class SignInVC: UIViewController {
                 }
                 print("The on who logged in ............")
                 print((user?.displayName)! as String)
+                if let user = user{
+                    self.completeSignInkeychain(uid: user.uid)
+                }
         }
         }
     }
@@ -53,12 +57,16 @@ class SignInVC: UIViewController {
                 // ...
                 if error == nil{
                    print("successfully logged in")
+                   
                 }
                 else{
                     FIRAuth.auth()?.createUser(withEmail: email, password: password) { (user, error) in
                         // ...
                         if error == nil{
                              print("account created")
+                            if let user = user{
+                             self.completeSignInkeychain(uid: user.uid)
+                            }
                         }else{
                             print("error in account creation")
                         }
@@ -69,22 +77,44 @@ class SignInVC: UIViewController {
     }
     
    
+    func completeSignInkeychain(uid: String){
+       KeychainWrapper.standard.set(uid, forKey: "uid")
+        performSegue(withIdentifier: "goToFeed", sender: nil)
+        
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        let feedVC =  (self.storyboard?.instantiateViewController(withIdentifier: "FeedVC"))! as UIViewController
+        self.present(feedVC, animated: true, completion: nil)
+
+        
+        // Do any additional setup after loading the view, typically from a nib.
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        if let _ = KeychainWrapper.standard.string(forKey: "uid"){
+            performSegue(withIdentifier: "goToFeed", sender: nil)
+        }
         
         if ((FBSDKAccessToken.current()) != nil) {
             print("logged in")
             // User is logged in, do work such as go to next view controller.
         }
-        
-        // Do any additional setup after loading the view, typically from a nib.
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
 
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+      
+        
+        
+    }
 
 }
 
