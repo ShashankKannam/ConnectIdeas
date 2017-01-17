@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import Firebase
+import FBSDKCoreKit
+import FBSDKLoginKit
 
 class SignInVC: UIViewController {
     
@@ -16,12 +19,30 @@ class SignInVC: UIViewController {
     
     
     @IBAction func login(sender: UIButton){
-        
+      
+        let fbloginManager = FBSDKLoginManager()
+      fbloginManager.logIn(withReadPermissions: ["email"], from: self) { (result, error) in
+        if error != nil{
+            print("Unable to login \(error?.localizedDescription)")
+        }
+        else if result?.isCancelled == true{
+            print("Not giving Permissions")
+        }
+        else {
+            //let credential
+        }
+        }
     }
     
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if ((FBSDKAccessToken.current()) != nil) {
+            print("logged in")
+            // User is logged in, do work such as go to next view controller.
+        }
+        
         // Do any additional setup after loading the view, typically from a nib.
     }
 

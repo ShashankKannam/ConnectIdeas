@@ -7,4 +7,7 @@ target 'ConnectIdeas' do
 
   # Pods for ConnectIdeas
   pod 'Firebase/Core'
+  pod 'Firebase/Auth'
+  pod 'Firebase/Database'
+  pod 'Firebase/Storage'
 end
