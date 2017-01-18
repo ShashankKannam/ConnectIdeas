@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		987697371E2EAE830017E1F0 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987697361E2EAE830017E1F0 /* FeedViewController.swift */; };
+		987697391E2FD6E60017E1F0 /* PostedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987697381E2FD6E60017E1F0 /* PostedTableViewCell.swift */; };
 		98959B6F1E2D4D94005835A2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98959B6E1E2D4D94005835A2 /* AppDelegate.swift */; };
 		98959B711E2D4D94005835A2 /* SignInVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98959B701E2D4D94005835A2 /* SignInVC.swift */; };
 		98959B741E2D4D94005835A2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 98959B721E2D4D94005835A2 /* Main.storyboard */; };
@@ -25,6 +26,7 @@
 /* Begin PBXFileReference section */
 		1C9C131411A1A53C3DC6EB06 /* Pods_ConnectIdeas.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ConnectIdeas.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		987697361E2EAE830017E1F0 /* FeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
+		987697381E2FD6E60017E1F0 /* PostedTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostedTableViewCell.swift; sourceTree = "<group>"; };
 		98959B6B1E2D4D94005835A2 /* ConnectIdeas.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ConnectIdeas.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		98959B6E1E2D4D94005835A2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		98959B701E2D4D94005835A2 /* SignInVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInVC.swift; sourceTree = "<group>"; };
@@ -124,6 +126,7 @@
 			isa = PBXGroup;
 			children = (
 				98959B851E2D5ED2005835A2 /* CustomView.swift */,
+				987697381E2FD6E60017E1F0 /* PostedTableViewCell.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -263,6 +266,7 @@
 			files = (
 				98959B861E2D5ED2005835A2 /* CustomView.swift in Sources */,
 				98959B711E2D4D94005835A2 /* SignInVC.swift in Sources */,
+				987697391E2FD6E60017E1F0 /* PostedTableViewCell.swift in Sources */,
 				987697371E2EAE830017E1F0 /* FeedViewController.swift in Sources */,
 				98959B6F1E2D4D94005835A2 /* AppDelegate.swift in Sources */,
 			);

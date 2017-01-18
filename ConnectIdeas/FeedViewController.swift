@@ -10,6 +10,21 @@ import UIKit
 
 class FeedViewController: UIViewController {
 
+    @IBOutlet weak var feedImage: UIImageView!
+    
+    @IBOutlet weak var feedTextView: UITextView!
+    
+
+    
+    @IBAction func postButton(_ sender: UIButton) {
+    }
+    
+  
+    @IBAction func uploadImageBuuton(_ sender: UIButton) {
+    }
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
