@@ -8,7 +8,7 @@
 
 import UIKit
 import Firebase
-import FBSDKCoreKit
+//import FBSDKCoreKit
 import FBSDKLoginKit
 import SwiftKeychainWrapper
 
@@ -23,12 +23,12 @@ class SignInVC: UIViewController {
       
         print("Got here first...")
         let fbloginManager = FBSDKLoginManager()
-      fbloginManager.logIn(withReadPermissions: ["email"], from: self) { (result, error) in
+        fbloginManager.logIn(withReadPermissions: ["email"], from: self) { (result, error) in
         if error != nil{
-            print("Unable to login \(error?.localizedDescription)")
+            print("-------------Unable to login \(error?.localizedDescription)")
         }
         else if result?.isCancelled == true{
-            print("Not giving Permissions")
+            print("--------------Not giving Permissions")
         }
         else {
             let credential = FIRFacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
@@ -39,10 +39,18 @@ class SignInVC: UIViewController {
                     print(error.localizedDescription)
                     return
                 }
-                print("The on who logged in ............")
-                print((user?.displayName)! as String)
+                print("---------The on who logged in ............")
+               // print((user?.displayName)! as String)
                 if let user = user{
-                    self.completeSignInkeychain(uid: user.uid)
+                    var imgURL = ""
+                    var name = ""
+                    if user.displayName != nil{
+                        name = user.displayName!
+                    }
+                    if user.photoURL != nil{
+                        imgURL = (user.photoURL?.absoluteString)!
+                    }
+                    self.completeSignInkeychain(uid: user.uid, userData: ["provider":"\(user.providerID)", "name":"\(name)", "userImgURL":"\(imgURL)"])
                 }
         }
         }
@@ -50,25 +58,45 @@ class SignInVC: UIViewController {
     }
 
     
+    
+    
     @IBAction func emailLogin(_ sender: Any){
        
         if let email = emailIDTF.text, let password = passwordTF.text{
             FIRAuth.auth()?.signIn(withEmail: email, password: password) { (user, error) in
                 // ...
                 if error == nil{
-                   print("successfully logged in")
-                   
+                   print("----------successfully logged in")
+                    if let user = user{
+                        var imgURL = ""
+                        var name = ""
+                        if user.displayName != nil{
+                            name = user.displayName!
+                        }
+                        if user.photoURL != nil{
+                            imgURL = (user.photoURL?.absoluteString)!
+                        }
+                        self.completeSignInkeychain(uid: user.uid, userData: ["provider":"\(user.providerID)", "name":"\(name)", "userImgURL":"\(imgURL)"])
+                    }
                 }
                 else{
                     FIRAuth.auth()?.createUser(withEmail: email, password: password) { (user, error) in
                         // ...
                         if error == nil{
-                             print("account created")
+                             print("----------account created")
                             if let user = user{
-                             self.completeSignInkeychain(uid: user.uid)
+                                var imgURL = ""
+                                var name = ""
+                                if user.displayName != nil{
+                                   name = user.displayName!
+                                }
+                                if user.photoURL != nil{
+                                    imgURL = (user.photoURL?.absoluteString)!
+                                }
+                                self.completeSignInkeychain(uid: user.uid, userData: ["provider":"\(user.providerID)", "name":"\(name)", "userImgURL":"\(imgURL)"])
                             }
                         }else{
-                            print("error in account creation")
+                            print("--------------error in account creation")
                         }
                     }
                 }
@@ -77,7 +105,10 @@ class SignInVC: UIViewController {
     }
     
    
-    func completeSignInkeychain(uid: String){
+    
+    
+    func completeSignInkeychain(uid: String, userData: Dictionary<String, String>){
+        DataService.dataserviceInstance.createUser(uid: uid, userData: userData)
        KeychainWrapper.standard.set(uid, forKey: "uid")
         performSegue(withIdentifier: "goToFeed", sender: nil)
         
@@ -86,13 +117,12 @@ class SignInVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let feedVC =  (self.storyboard?.instantiateViewController(withIdentifier: "FeedVC"))! as UIViewController
-        self.present(feedVC, animated: true, completion: nil)
 
-        
         // Do any additional setup after loading the view, typically from a nib.
     }
 
+    
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
         if let _ = KeychainWrapper.standard.string(forKey: "uid"){
@@ -105,15 +135,11 @@ class SignInVC: UIViewController {
         }
     }
     
+    
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-    }
-
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-      
-        
-        
     }
 
 }

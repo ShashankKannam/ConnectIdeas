@@ -7,12 +7,26 @@
 //
 
 import UIKit
+import FirebaseAuth
+import FBSDKLoginKit
+import SwiftKeychainWrapper
 
-class FeedViewController: UIViewController {
+class FeedViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    
+     @IBOutlet weak var tableView: UITableView!
 
     @IBOutlet weak var feedImage: UIImageView!
     
     @IBOutlet weak var feedTextView: UITextView!
+    
+    @IBAction func signOut(_ sender: UIButton) {
+       let keyChainResult = KeychainWrapper.standard.removeObject(forKey: "uid")
+        if keyChainResult{
+            FBSDKLoginManager.init().logOut()
+            try! FIRAuth.auth()?.signOut()
+            dismiss(animated: true, completion: nil)
+        }
+    }
     
 
     
@@ -30,6 +44,21 @@ class FeedViewController: UIViewController {
 
         // Do any additional setup after loading the view.
     }
+
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 3
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        return UITableViewCell()
+    }
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

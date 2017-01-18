@@ -108,7 +108,7 @@
                     <connections>
                         <outlet property="emailIDTF" destination="G6M-ts-1P3" id="9BO-Ff-hHC"/>
                         <outlet property="passwordTF" destination="0XD-Ni-l5w" id="cth-0X-mRk"/>
-                        <segue destination="GqZ-Qd-ywu" kind="show" identifier="goToFeed" id="8rV-Nt-28W"/>
+                        <segue destination="GqZ-Qd-ywu" kind="showDetail" identifier="goToFeed" action="showViewController:sender:" id="8rV-Nt-28W"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -137,18 +137,21 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Iuc-bQ-skc">
-                                        <rect key="frame" x="8" y="5" width="62" height="40"/>
+                                        <rect key="frame" x="8" y="5" width="62" height="45"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                                         <state key="normal" title="Logout">
                                             <color key="titleColor" red="1" green="0.20734889519999999" blue="0.1023853405" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
+                                        <connections>
+                                            <action selector="signOut:" destination="GqZ-Qd-ywu" eventType="touchUpInside" id="Tkc-1b-EHf"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.5296131234" green="1" blue="0.92567918390000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstItem="Iuc-bQ-skc" firstAttribute="top" secondItem="SMj-Qt-Ewm" secondAttribute="top" constant="5" id="60T-IU-d2E"/>
                                     <constraint firstAttribute="trailing" secondItem="UxR-Ej-wsF" secondAttribute="trailing" constant="85" id="8BX-tB-EY8"/>
-                                    <constraint firstAttribute="bottom" secondItem="Iuc-bQ-skc" secondAttribute="bottom" constant="5" id="Akv-97-hQu"/>
+                                    <constraint firstAttribute="bottom" secondItem="Iuc-bQ-skc" secondAttribute="bottom" id="Akv-97-hQu"/>
                                     <constraint firstItem="UxR-Ej-wsF" firstAttribute="top" secondItem="SMj-Qt-Ewm" secondAttribute="top" constant="8" id="cl9-UB-DmE"/>
                                     <constraint firstItem="UxR-Ej-wsF" firstAttribute="leading" secondItem="SMj-Qt-Ewm" secondAttribute="leading" constant="85" id="f2z-UI-li1"/>
                                     <constraint firstAttribute="bottom" secondItem="UxR-Ej-wsF" secondAttribute="bottom" constant="7" id="frj-pd-sMF"/>
@@ -219,7 +222,7 @@
                                 <rect key="frame" x="0.0" y="185" width="375" height="482"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="377" id="Mkh-3N-4Hb" customClass="PostedTableViewCell" customModule="ConnectIdeas" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="PostedVC" rowHeight="377" id="Mkh-3N-4Hb" customClass="PostedTableViewCell" customModule="ConnectIdeas" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="377"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Mkh-3N-4Hb" id="SgJ-jH-Brj">
@@ -340,6 +343,7 @@
                     <connections>
                         <outlet property="feedImage" destination="tLy-gf-1On" id="njs-9e-BHa"/>
                         <outlet property="feedTextView" destination="mJ7-Cf-grr" id="1iS-c4-5bP"/>
+                        <outlet property="tableView" destination="S1F-rk-NSt" id="bH2-It-rmQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NfB-Ub-Jdq" userLabel="First Responder" sceneMemberID="firstResponder"/>
