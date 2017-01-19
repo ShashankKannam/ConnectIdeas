@@ -12,3 +12,9 @@ class Customview:UIView{
     
     
 }
+extension UIImageView{
+    func roundedImage(){
+        layer.cornerRadius = self.frame.height/2
+        clipsToBounds = true
+    }
+}

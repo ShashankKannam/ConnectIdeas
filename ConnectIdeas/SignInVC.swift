@@ -21,7 +21,6 @@ class SignInVC: UIViewController {
     
     @IBAction func login(_ sender: Any){
       
-        print("Got here first...")
         let fbloginManager = FBSDKLoginManager()
         fbloginManager.logIn(withReadPermissions: ["email"], from: self) { (result, error) in
         if error != nil{
@@ -111,13 +110,11 @@ class SignInVC: UIViewController {
         DataService.dataserviceInstance.createUser(uid: uid, userData: userData)
        KeychainWrapper.standard.set(uid, forKey: "uid")
         performSegue(withIdentifier: "goToFeed", sender: nil)
-        
     }
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         // Do any additional setup after loading the view, typically from a nib.
     }
 

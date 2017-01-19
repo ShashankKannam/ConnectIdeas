@@ -25,12 +25,26 @@ class PostedTableViewCell: UITableViewCell {
     @IBOutlet weak var Likes: UILabel!
     
     @IBAction func likeButton(_ sender: UIButton) {
+      
         
     }
     
     
+    func configureCell(postData: PostData){
+       personName.text = postData.personName
+       postedPersonTextView.text = postData.idea
+       Likes.text = postData.likes
+    print("Herre ...................................")
+        print(Likes.text)
+        
+        downloadImages(url: postData.personImgURL)
+        downloadImages(url: postData.ideaImg)
+    }
     
     
+    func downloadImages(url: String){
+       personImage.roundedImage()
+    }
     
 
     override func awakeFromNib() {
@@ -38,10 +52,6 @@ class PostedTableViewCell: UITableViewCell {
         // Initialization code
     }
 
-//    override func setSelected(_ selected: Bool, animated: Bool) {
-//        super.setSelected(selected, animated: animated)
-//
-//        // Configure the view for the selected state
-//    }
+
 
 }

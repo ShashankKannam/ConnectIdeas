@@ -35,4 +35,12 @@ class DataService{
         dbUsers.child(uid).updateChildValues(userData)
         print(userData)
     }
+    
+    func createPosts(postData: Dictionary<String, String>){
+        dbPosts.childByAutoId().updateChildValues(postData)
+    }
+    
+    func postKeytoUsers(uid: String,postKey: String){
+      dbUsers.child(uid).updateChildValues(["postKey":"\(postKey)"])
+    }
 }

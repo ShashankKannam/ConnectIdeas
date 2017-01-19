@@ -163,8 +163,9 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gXK-3v-ZJ4">
                                 <rect key="frame" x="0.0" y="50" width="375" height="135"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="tLy-gf-1On">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="add-image" translatesAutoresizingMaskIntoConstraints="NO" id="tLy-gf-1On">
                                         <rect key="frame" x="8" y="8" width="70" height="70"/>
+                                        <color key="backgroundColor" red="0.50196081400000003" green="0.50196081400000003" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="70" id="j8D-sc-khf"/>
                                             <constraint firstAttribute="width" constant="70" id="p0M-ux-TLg"/>
@@ -218,25 +219,27 @@
                                     <constraint firstItem="tLy-gf-1On" firstAttribute="top" secondItem="gXK-3v-ZJ4" secondAttribute="top" constant="8" id="zvS-gZ-XAw"/>
                                 </constraints>
                             </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="377" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="S1F-rk-NSt">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" indicatorStyle="white" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="377" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="S1F-rk-NSt">
                                 <rect key="frame" x="0.0" y="185" width="375" height="482"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="separatorColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
+                                <inset key="separatorInset" minX="15" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="PostedVC" rowHeight="377" id="Mkh-3N-4Hb" customClass="PostedTableViewCell" customModule="ConnectIdeas" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="PostedTableViewCell" rowHeight="377" id="Mkh-3N-4Hb" customClass="PostedTableViewCell" customModule="ConnectIdeas" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="377"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Mkh-3N-4Hb" id="SgJ-jH-Brj">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="376"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="377"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="rkV-Pb-X0h">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Swift" translatesAutoresizingMaskIntoConstraints="NO" id="rkV-Pb-X0h">
                                                     <rect key="frame" x="8" y="0.0" width="80" height="70"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="70" id="mZY-XU-0pJ"/>
                                                         <constraint firstAttribute="width" constant="80" id="yUO-Sl-aBY"/>
                                                     </constraints>
                                                 </imageView>
-                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Posted Idea here........." textAlignment="justified" translatesAutoresizingMaskIntoConstraints="NO" id="R6m-iD-mkP">
+                                                <textView clipsSubviews="YES" clearsContextBeforeDrawing="NO" multipleTouchEnabled="YES" contentMode="scaleAspectFit" editable="NO" text="Posted Idea here........." textAlignment="justified" translatesAutoresizingMaskIntoConstraints="NO" id="R6m-iD-mkP">
                                                     <rect key="frame" x="8" y="215" width="359" height="130"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
@@ -245,7 +248,7 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                 </textView>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qzm-36-4Kz">
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" reversesTitleShadowWhenHighlighted="YES" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qzm-36-4Kz">
                                                     <rect key="frame" x="305" y="8" width="60" height="60"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="60" id="mXt-Jg-PpB"/>
@@ -259,7 +262,7 @@
                                                         <action selector="likeButton:" destination="Mkh-3N-4Hb" eventType="touchUpInside" id="GOD-nX-Jc9"/>
                                                     </connections>
                                                 </button>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ykP-X4-G6f">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="rick_grimes.gif" translatesAutoresizingMaskIntoConstraints="NO" id="ykP-X4-G6f">
                                                     <rect key="frame" x="8" y="80" width="359" height="130"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="130" id="ySf-96-Zdx"/>
@@ -276,7 +279,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="9999" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="26X-rM-2Zp">
-                                                    <rect key="frame" x="323" y="352" width="42" height="21"/>
+                                                    <rect key="frame" x="323" y="352" width="42" height="22"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="42" id="ic6-YQ-F8s"/>
                                                     </constraints>
@@ -285,7 +288,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Likes:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4mu-uR-PEw">
-                                                    <rect key="frame" x="271" y="352" width="44" height="21"/>
+                                                    <rect key="frame" x="271" y="352" width="44" height="22"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="44" id="8Rw-eg-R81"/>
                                                     </constraints>
@@ -315,6 +318,7 @@
                                                 <constraint firstAttribute="trailing" secondItem="26X-rM-2Zp" secondAttribute="trailing" constant="10" id="ubx-mV-VSQ"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <inset key="separatorInset" minX="15" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         <connections>
                                             <outlet property="Likes" destination="26X-rM-2Zp" id="u7f-Oe-60b"/>
                                             <outlet property="personImage" destination="rkV-Pb-X0h" id="zeU-2H-UIj"/>
@@ -352,6 +356,9 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Swift" width="206" height="206"/>
+        <image name="add-image" width="88" height="88"/>
         <image name="fb_blue" width="512" height="512"/>
+        <image name="rick_grimes.gif" width="245" height="245"/>
     </resources>
 </document>
