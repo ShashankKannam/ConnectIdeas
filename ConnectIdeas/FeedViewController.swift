@@ -24,6 +24,9 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     var imagePicker:UIImagePickerController!
     
+    var imageSelected = false
+  
+    
     @IBAction func signOut(_ sender: UIButton) {
        let keyChainResult = KeychainWrapper.standard.removeObject(forKey: "uid")
         if keyChainResult{
@@ -36,10 +39,50 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
 
     
     @IBAction func postButton(_ sender: UIButton) {
-      
+     
+        guard let feedText = feedTextView.text, feedText != "" else{
+            print("text is nil")
+            return
+        }
+        
+        guard let feedImageguarded = feedImage.image, imageSelected == true else{
+            print("image not selected")
+            return
+        }
+
+            if let imgData = UIImageJPEGRepresentation(feedImageguarded, 0.2){
+                let imgUID = UUID.init().uuidString
+                let metaData = FIRStorageMetadata()
+                metaData.contentType = "image/jpeg"
+                DataService.dataserviceInstance.storagePosts.child(imgUID).put(imgData, metadata: metaData, completion: { (uploadMetaData, error) in
+                    if error != nil{
+                        print("Cant upload images to firebase: \(error.debugDescription)")
+                    }else{
+                        print("succesfully uploaded img")
+                        if let downloadURL = uploadMetaData?.downloadURL()?.absoluteString{
+                          print(downloadURL)
+                            self.uploadPostData(url: downloadURL)
+                        }
+                    }
+                })
+                
+            }
     }
     
-  
+    
+    func uploadPostData(url: String){
+        let currentUserIMgURL = FIRAuth.auth()?.currentUser?.photoURL?.absoluteString
+        let currentUsername = FIRAuth.auth()?.currentUser?.displayName
+        
+   if let feedtxt = feedTextView.text, let personImgURL = currentUserIMgURL, let personName = currentUsername{
+           DataService.dataserviceInstance.createPosts(postData: ["idea":"\(feedtxt)", "ideaImg":"\(url)", "likes":"0", "personImgURL":"\(personImgURL)", "personName":"\(personName)", "postkey":""])
+        }
+    }
+    
+    
+    
+    
+    
     @IBAction func uploadImageBuuton(_ sender: UIButton) {
        self.present(imagePicker, animated: true, completion: nil)
     }
@@ -69,7 +112,7 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
                 for snap in snapshot{
                    // print(snap.value!)
                     if let allPostData = snap.value as? Dictionary<String, Any>{
-                        print(allPostData)
+                       // print(allPostData)
                         
                        self.posts.append( PostData(personName: allPostData["personName"] as! String, personImgURL: allPostData["personImgURL"] as! String, idea: allPostData["idea"] as! String, ideaImg: allPostData["ideaImg"] as! String, postkey: allPostData["postkey"] as! String, likes: allPostData["likes"] as! String))
                     }
@@ -78,10 +121,8 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
             }
             self.tableView.reloadData()
         })
-        
-        
-        
     }
+    
     
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -89,9 +130,11 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return posts.count
     }
+    
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -105,16 +148,21 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     
+    
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         
         if let selectedImage = info[UIImagePickerControllerEditedImage] as? UIImage{
             feedImage.image = selectedImage
+            imageSelected = true
             feedImage.roundedImage()
         }
         imagePicker.dismiss(animated: true, completion: nil)
     }
     
-    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        tableView.reloadData()
+    }
     
     
 

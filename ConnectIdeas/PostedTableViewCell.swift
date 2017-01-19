@@ -34,8 +34,8 @@ class PostedTableViewCell: UITableViewCell {
        personName.text = postData.personName
        postedPersonTextView.text = postData.idea
        Likes.text = postData.likes
-    print("Herre ...................................")
-        print(Likes.text)
+        //print("Herre ...................................")
+        //print(Likes.text)
         
         downloadImages(url: postData.personImgURL)
         downloadImages(url: postData.ideaImg)
