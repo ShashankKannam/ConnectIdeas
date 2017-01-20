@@ -219,17 +219,17 @@
                                     <constraint firstItem="tLy-gf-1On" firstAttribute="top" secondItem="gXK-3v-ZJ4" secondAttribute="top" constant="8" id="zvS-gZ-XAw"/>
                                 </constraints>
                             </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" indicatorStyle="white" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="377" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="S1F-rk-NSt">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" indicatorStyle="white" dataMode="prototypes" style="plain" separatorStyle="singleLineEtched" rowHeight="377" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="S1F-rk-NSt">
                                 <rect key="frame" x="0.0" y="185" width="375" height="482"/>
                                 <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
-                                <color key="separatorColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
-                                <inset key="separatorInset" minX="15" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <color key="separatorColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="sectionIndexBackgroundColor" red="0.77503797740000002" green="0.85793696379999995" blue="0.74012459149999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="PostedTableViewCell" rowHeight="377" id="Mkh-3N-4Hb" customClass="PostedTableViewCell" customModule="ConnectIdeas" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="377"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Mkh-3N-4Hb" id="SgJ-jH-Brj">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="377"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="376"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Swift" translatesAutoresizingMaskIntoConstraints="NO" id="rkV-Pb-X0h">
@@ -318,6 +318,7 @@
                                                 <constraint firstAttribute="trailing" secondItem="26X-rM-2Zp" secondAttribute="trailing" constant="10" id="ubx-mV-VSQ"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" red="1" green="1" blue="0.40000000600000002" alpha="0.54591181506849318" colorSpace="calibratedRGB"/>
                                         <inset key="separatorInset" minX="15" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         <connections>
                                             <outlet property="LikeButton" destination="qzm-36-4Kz" id="iCo-UN-IYB"/>
