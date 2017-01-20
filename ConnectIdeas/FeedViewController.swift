@@ -162,19 +162,15 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         imagePicker.dismiss(animated: true, completion: nil)
     }
     
-//    override func viewWillAppear(_ animated: Bool) {
-//        super.viewWillAppear(true)
-//        tableView.reloadData()
-//    }
-    
-//    override func viewDidAppear(_ animated: Bool) {
-//        super.viewDidAppear(true)
-//        tableView.reloadData()
-//    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        tableView.reloadData()
+    }
     
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+        print("Memory warning!!!!!")
         // Dispose of any resources that can be recreated.
     }
     

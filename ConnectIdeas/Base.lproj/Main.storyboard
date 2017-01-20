@@ -320,6 +320,7 @@
                                         </tableViewCellContentView>
                                         <inset key="separatorInset" minX="15" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         <connections>
+                                            <outlet property="LikeButton" destination="qzm-36-4Kz" id="iCo-UN-IYB"/>
                                             <outlet property="Likes" destination="26X-rM-2Zp" id="u7f-Oe-60b"/>
                                             <outlet property="personImage" destination="rkV-Pb-X0h" id="zeU-2H-UIj"/>
                                             <outlet property="personName" destination="jJh-gA-KY5" id="dAz-dG-I5c"/>

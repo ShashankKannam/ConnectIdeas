@@ -25,6 +25,8 @@ class PostedTableViewCell: UITableViewCell {
     
     @IBOutlet weak var Likes: UILabel!
     
+    @IBOutlet weak var LikeButton: UIButton!
+    
     
      var imgFeedCache:NSCache<NSString, UIImage> = NSCache()
     
@@ -32,18 +34,32 @@ class PostedTableViewCell: UITableViewCell {
     
     var post = PostData(personName: "", personImgURL: "", idea: "", ideaImg: "", postkey: "", likes: "", uid: "")
     
+    var liked:Bool = false
+    
     
     @IBAction func likeButton(_ sender: UIButton) {
       
+        liked = !liked
+        
        print("Before liking post : \(post.likes)")
         
         DataService.dataserviceInstance.dbPosts.child(post.uid).child("likes").observeSingleEvent(of: .value, with: { (snapshot) in
             //
             print(snapshot)
-            self.post.likes = String(Int(self.post.likes)! + 1)
+            if self.liked{
+               self.post.likes = String(Int(self.post.likes)! + 1)
+            }else{
+               self.post.likes = String(Int(self.post.likes)! - 1)
+            }
+          
           print("After liking post : \(self.post.likes)")
             DataService.dataserviceInstance.updateLikes(uid: self.post.uid, likes: self.post.likes)
             self.Likes.text = self.post.likes
+            if self.liked{
+                self.LikeButton.setTitle("👎", for: .normal)
+            }else{
+               self.LikeButton.setTitle("👍🏻", for: .normal) 
+            }
         })
         
     }
