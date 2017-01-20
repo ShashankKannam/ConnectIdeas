@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class PostedTableViewCell: UITableViewCell {
     
@@ -24,6 +25,12 @@ class PostedTableViewCell: UITableViewCell {
     
     @IBOutlet weak var Likes: UILabel!
     
+    
+     var imgFeedCache:NSCache<NSString, UIImage> = NSCache()
+    
+     var imgPersonCache:NSCache<NSString, UIImage> = NSCache()
+    
+    
     @IBAction func likeButton(_ sender: UIButton) {
       
         
@@ -34,24 +41,55 @@ class PostedTableViewCell: UITableViewCell {
        personName.text = postData.personName
        postedPersonTextView.text = postData.idea
        Likes.text = postData.likes
-        //print("Herre ...................................")
-        //print(Likes.text)
-        
-        downloadImages(url: postData.personImgURL)
-        downloadImages(url: postData.ideaImg)
-    }
+       // print(postData.ideaImg)
+       // print(postData.personImgURL)
+        personImage.roundedImage()
+        if let personImg = imgPersonCache.object(forKey: postData.personImgURL as NSString){
+            print("Already in cache..........")
+            personImage.image = personImg
+        }else{
+            downloadpersonImages(url: postData.personImgURL)
+        }
+        if let feedImg = imgFeedCache.object(forKey: postData.ideaImg as NSString){
+            postedPersonImage.image = feedImg
+            print("Already in cache..........")
+        }else{
+            downloadImages(url: postData.ideaImg)
+
+        }
+         }
     
     
-    func downloadImages(url: String){
-       personImage.roundedImage()
+    func downloadpersonImages(url: String){
+        let urlA = NSString(string: url)
+            let url = URL(string: url)!
+            DispatchQueue.global().async {
+                do
+                {
+                    let datax = try Data(contentsOf: url)
+                    DispatchQueue.global().sync {
+                        self.personImage.image = UIImage(data:datax)
+                        self.imgPersonCache.setObject(self.personImage.image!, forKey: urlA)
+                        //setValue(self.personImage.image, forKey: urlA)
+                    }
+               }
+                catch{
+                    
+                }
+        }
     }
     
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
+    
+  func downloadImages(url: String){
+            let ref = DataService.dataserviceInstance.storagePosts.storage.reference(forURL: url)
+            ref.data(withMaxSize: 2*1024*1024) { (data, error) in
+                if error != nil{
+                    print("Problem with downloading image: \(error.debugDescription)")
+                }
+               self.postedPersonImage.image = UIImage(data: data!)
+                self.imgFeedCache.setObject(self.postedPersonImage.image!, forKey: url as NSString)
+                //setValue(self.postedPersonImage.image, forKey: url as NSString)
+            }
     }
-
-
-
 }

@@ -77,6 +77,7 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
    if let feedtxt = feedTextView.text, let personImgURL = currentUserIMgURL, let personName = currentUsername{
            DataService.dataserviceInstance.createPosts(postData: ["idea":"\(feedtxt)", "ideaImg":"\(url)", "likes":"0", "personImgURL":"\(personImgURL)", "personName":"\(personName)", "postkey":""])
         }
+        feedTextView.text = ""
     }
     
     
@@ -115,10 +116,11 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
                        // print(allPostData)
                         
                        self.posts.append( PostData(personName: allPostData["personName"] as! String, personImgURL: allPostData["personImgURL"] as! String, idea: allPostData["idea"] as! String, ideaImg: allPostData["ideaImg"] as! String, postkey: allPostData["postkey"] as! String, likes: allPostData["likes"] as! String))
+                        
                     }
                 }
-                
             }
+            self.posts.reverse()
             self.tableView.reloadData()
         })
     }
