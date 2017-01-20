@@ -65,7 +65,6 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
                         }
                     }
                 })
-                
             }
     }
     
@@ -73,9 +72,12 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
     func uploadPostData(url: String){
         let currentUserIMgURL = FIRAuth.auth()?.currentUser?.photoURL?.absoluteString
         let currentUsername = FIRAuth.auth()?.currentUser?.displayName
-        
+        var postUID:String = ""
+        if let postUID1 = FIRAuth.auth()?.currentUser?.uid{
+            postUID = postUID1
+        }
    if let feedtxt = feedTextView.text, let personImgURL = currentUserIMgURL, let personName = currentUsername{
-           DataService.dataserviceInstance.createPosts(postData: ["idea":"\(feedtxt)", "ideaImg":"\(url)", "likes":"0", "personImgURL":"\(personImgURL)", "personName":"\(personName)", "postkey":""])
+           DataService.dataserviceInstance.createPosts(postData: ["idea":"\(feedtxt)", "ideaImg":"\(url)", "likes":"0", "personImgURL":"\(personImgURL)", "personName":"\(personName)", "postkey":"\(postUID)"])
         }
         feedTextView.text = ""
     }
@@ -109,14 +111,13 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
      
         DataService.dataserviceInstance.dbPosts.observe(.value, with: { (snapshot) in
             if let snapshot = snapshot.children.allObjects as? [FIRDataSnapshot]{
-                
+                self.posts = []
                 for snap in snapshot{
                    // print(snap.value!)
                     if let allPostData = snap.value as? Dictionary<String, Any>{
                        // print(allPostData)
                         
-                       self.posts.append( PostData(personName: allPostData["personName"] as! String, personImgURL: allPostData["personImgURL"] as! String, idea: allPostData["idea"] as! String, ideaImg: allPostData["ideaImg"] as! String, postkey: allPostData["postkey"] as! String, likes: allPostData["likes"] as! String))
-                        
+                        self.posts.append( PostData(personName: allPostData["personName"] as! String, personImgURL: allPostData["personImgURL"] as! String, idea: allPostData["idea"] as! String, ideaImg: allPostData["ideaImg"] as! String, postkey: allPostData["postkey"] as! String, likes: allPostData["likes"] as! String, uid: allPostData["uid"] as! String))
                     }
                 }
             }
@@ -140,8 +141,8 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+         let post = posts[indexPath.row]
         if let cell = tableView.dequeueReusableCell(withIdentifier: "PostedTableViewCell") as? PostedTableViewCell{
-            let post = posts[indexPath.row]
               cell.configureCell(postData: post)
              return cell
         }else{
@@ -161,11 +162,15 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         imagePicker.dismiss(animated: true, completion: nil)
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
-        tableView.reloadData()
-    }
+//    override func viewWillAppear(_ animated: Bool) {
+//        super.viewWillAppear(true)
+//        tableView.reloadData()
+//    }
     
+//    override func viewDidAppear(_ animated: Bool) {
+//        super.viewDidAppear(true)
+//        tableView.reloadData()
+//    }
     
 
     override func didReceiveMemoryWarning() {
@@ -174,6 +179,8 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
 
+    
+    
     /*
     // MARK: - Navigation
 

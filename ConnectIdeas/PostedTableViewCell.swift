@@ -30,14 +30,28 @@ class PostedTableViewCell: UITableViewCell {
     
      var imgPersonCache:NSCache<NSString, UIImage> = NSCache()
     
+    var post = PostData(personName: "", personImgURL: "", idea: "", ideaImg: "", postkey: "", likes: "", uid: "")
+    
     
     @IBAction func likeButton(_ sender: UIButton) {
       
+       print("Before liking post : \(post.likes)")
+        
+        DataService.dataserviceInstance.dbPosts.child(post.uid).child("likes").observeSingleEvent(of: .value, with: { (snapshot) in
+            //
+            print(snapshot)
+            self.post.likes = String(Int(self.post.likes)! + 1)
+          print("After liking post : \(self.post.likes)")
+            DataService.dataserviceInstance.updateLikes(uid: self.post.uid, likes: self.post.likes)
+            self.Likes.text = self.post.likes
+        })
         
     }
     
     
+    
     func configureCell(postData: PostData){
+       post = postData
        personName.text = postData.personName
        postedPersonTextView.text = postData.idea
        Likes.text = postData.likes
@@ -45,14 +59,14 @@ class PostedTableViewCell: UITableViewCell {
        // print(postData.personImgURL)
         personImage.roundedImage()
         if let personImg = imgPersonCache.object(forKey: postData.personImgURL as NSString){
-            print("Already in cache..........")
+            print("Already in cache..........person image")
             personImage.image = personImg
         }else{
             downloadpersonImages(url: postData.personImgURL)
         }
         if let feedImg = imgFeedCache.object(forKey: postData.ideaImg as NSString){
             postedPersonImage.image = feedImg
-            print("Already in cache..........")
+            print("Already in cache..........posted person feed image")
         }else{
             downloadImages(url: postData.ideaImg)
 
@@ -63,11 +77,11 @@ class PostedTableViewCell: UITableViewCell {
     func downloadpersonImages(url: String){
         let urlA = NSString(string: url)
             let url = URL(string: url)!
-            DispatchQueue.global().async {
+            DispatchQueue.global().sync {
                 do
                 {
                     let datax = try Data(contentsOf: url)
-                    DispatchQueue.global().sync {
+                    DispatchQueue.global().async {
                         self.personImage.image = UIImage(data:datax)
                         self.imgPersonCache.setObject(self.personImage.image!, forKey: urlA)
                         //setValue(self.personImage.image, forKey: urlA)

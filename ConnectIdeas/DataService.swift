@@ -48,10 +48,21 @@ class DataService{
     }
     
     func createPosts(postData: Dictionary<String, String>){
-        dbPosts.childByAutoId().updateChildValues(postData)
+        let uid = UUID.init().uuidString
+        var postData = postData
+        postData["uid"] = uid
+        dbPosts.child(uid).updateChildValues(postData)
+        let currentUser = FIRAuth.auth()?.currentUser?.uid
+        if let currentUser1 = currentUser{
+            postKeytoUsers(uid: currentUser1, postKey: uid)
+        }
+    }
+
+    func updateLikes(uid:String, likes: String){
+        dbPosts.child(uid).updateChildValues(["likes":likes])
     }
     
     func postKeytoUsers(uid: String,postKey: String){
-      dbUsers.child(uid).updateChildValues(["postKey":"\(postKey)"])
+      dbUsers.child(uid).child("posts").updateChildValues(["\(postKey)":"postKey"])
     }
 }

@@ -92,6 +92,7 @@ class SignInVC: UIViewController {
                                 if user.photoURL != nil{
                                     imgURL = (user.photoURL?.absoluteString)!
                                 }
+                               // let uid = FIRAuth.auth()?.currentUser?.uid
                                 self.completeSignInkeychain(uid: user.uid, userData: ["provider":"\(user.providerID)", "name":"\(name)", "userImgURL":"\(imgURL)"])
                             }
                         }else{
@@ -102,8 +103,6 @@ class SignInVC: UIViewController {
             }
         }
     }
-    
-   
     
     
     func completeSignInkeychain(uid: String, userData: Dictionary<String, String>){
@@ -131,8 +130,6 @@ class SignInVC: UIViewController {
             // User is logged in, do work such as go to next view controller.
         }
     }
-    
-    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
